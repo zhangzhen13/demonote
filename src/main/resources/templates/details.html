@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户详情</title>
+</head>
+<body>
+<!--
+   <div style="width:600px;height:100%;">
+    <form action="/note/update" method="post">
+        <td th:each="notes:${notes}"></td>
+        <input name="id" type="hidden" th:value="${notes.id}" ><br>
+        名 称：<input type="text"  th:value="${notes.name}" name="name"><br>
+        内 容：<textarea rows="10" cols="30" type="text" th:text="${notes.content}" name="content"></textarea><br>
+        <button type="submit" >保存</button>
+    </form>
+
+      <td>
+              <a th:href="@{'/note/updatePage/'+${lists.id}}">修改</a>
+              <a th:href="@{'/note/delete/'+${lists.id}}">删除</a>
+              <a th:href="@{'/note/details/'+${lists.id}}">详情</a>
+          </td>
+      </tr>
+</div>
+
+-->
+<div th:each="notes:${notes}">
+    编码:<span name = "id"  th:text="${notes.id}"></span><br>
+    <!-- 名称：<input type="text" th:value="${notes.name}"><br>-->
+    <!--名称：<div th:value="${notes.name}" name="name" th:text="${notes.name}"></div>-->
+   名称： <span name = "name"  th:text="${notes.name}"></span><br>
+   <!--使用textarea标签时，标签值获取时需要设置test属性，value属性无效。反之，input需要设置value属性才能获取值-->
+    <!--    内容：<textarea rows="10" cols="30" type="text" th:value="${notes.content}" th:text="${notes.content}"></textarea><br>-->
+    <!--内容 <div type="text"name="content" th:text="${notes.content}"></div>-->
+   内容：<span name = "content"  th:text="${notes.content}"></span><br>
+     <button><a href="/note/test">返回列表</a></button>
+    <button><a th:href="@{'/note/updatePage/'+${notes.id}}">修改</a></button>
+ </div>
+ </body>
+ </html>

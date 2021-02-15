@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <!-- 引入 Bootstrap -->
+    <!--  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+  </head>
+  <body>
+  <!--
+  <tr style="text-align:center">
+      <th>编码</th>
+      <th>名称</th>
+      <th>内容</th>
+  </tr>
+  <div th:each="lists: ${list}">
+      <div th:text="${lists.id}">Oranges</div>
+      <div th:text="${lists.name}">Oranges</div>
+      <div th:text="${lists.content}">Oranges</div>
+
+       <td th:text="${lists.id}"></td>
+          <td th:text="${lists.name}"></td>
+          <td th:text="${lists.content}"></td>
+          <a th:href="">详情</a>
+  </div>-->
+
+  <table class="table table-striped table-bordered table-hover text-center">
+      <thead>
+      <tr style="text-align:center">
+          <th>编码</th>
+          <th>名称</th>
+          <!-- <th>内容</th>2020.12.28内容列去掉-->
+           <th>操作</th>
+       </tr>
+       </thead>
+
+       <tr th:each="lists: ${list}">
+           <td th:text="${lists.id}"></td>
+          <td><a  th:href="@{'/note/details/'+${lists.id}}" th:value="${lists.name}" th:text="${lists.name}" style="text-decoration: none"></a></td>
+         <!--  <td th:text="${lists.content}"></td>   2020.12.28内容列去掉-->
+          <td>
+              <a th:href="@{'/note/updatePage/'+${lists.id}}">修改</a>
+              <a th:href="@{'/note/delete/'+${lists.id}}">删除</a>
+             <!-- <a th:href="@{'/note/details/'+${lists.id}}">详情</a>   2020.12.28详情列去掉-->
+          </td>
+      </tr>
+  </table>
+  <!--   http://localhost:8009/note/test?pageNumber=1&pageSize=10不传值，有默认值。分页方式2-->
+  <!--   <首页 我页码等于1的时候显示 禁用><首页 我页码大于1的时候显示 不禁用>   -->
+  <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:if="${pageNumber} eq '1' " onclick="return false" >首页</a>
+  <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:if="${pageNumber} gt '1' " onclick="return true" >首页</a>
+  <a th:href="@{'/note/test?pageNumber='+${pageNumber-1}+'&pageSize='+10}">上一页</a>
+
+  <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" >[[${i}]]</a>
+  <a th:href="@{#}">测试点击不跳转</a>
+  <!--<a th:href="${#}">测试点击不跳转</a>
+    <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" onclick="return false">[[${i}]]</a>
+   <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" th:if="${pageNumber} eq ${i}" th:disabled="false" onclick="return false">[[${i}]]</a>
+
+
+  <div class="pagination" th:each="i:${#numbers.sequence(1,totalPage)}">
+
+      <a th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}">[[${i}]]</a>
+      <!--<a th:href="@{'/note/test?pageNumber='+${i}}">[[${i}]]</a>   -->
+<!--     <a th:href=""></a>    <a th:href="@{'queryAllByClass?sclass='+${page}+'&pageNumber='+${i}}">[[${i}]]</a>   -->
+  <!--  </div> <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} lt ${totalPage} " onclick="return false">尾页</a>
+<a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} le ${totalPage}-1 " onclick="return true">尾页</a>
+    -->
+  <a th:href="@{'/note/test?pageNumber='+${pageNumber+1}+'&pageSize='+10}">下一页</a>
+  <!--   <尾页 我页码等于【总页数】的时候显示 禁用><尾页 我页码小于等于【总页数-1——倒数第二页】的时候显示 不禁用>   -->
+  <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} le ${totalPage}-1 " onclick="return true">尾页</a>
+  <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} eq ${totalPage} " onclick="return false">尾页</a>
+<!--
+le：less equal（小于等于）<=-->
+  <!--ge：great equal（大于等于）>=-->
+  <!--gt：great than（大于）>
+  ge：great equal（大于等于）>=
+  eq：equal（等于）==
+  lt：less than（小于）<
+  le：less equal（小于等于）<=
+  ne：not equal（不等于）!=-->
+  <!--
+ <div th:each="pagE:${pages}">
+     <div th:text="${pagE}"></div>
+ </div>
+   <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:if="${pageNumber} ge '2' ">首页</a>
+   <a th:href="@{'/note/test?pageNumber='+${pageNumber-1}+'&pageSize='+10}" th:if="${pageNumber} ge '2' ">上一页</a>
+
+  <a th:value="${pages}" th:data="${pages}" th:text="${pages}"></a>
+  <a th:text="${pages}"></a>
+
+   <a th:href="@{'/note/test?pageNumber='+${pageNumber+1}+'&pageSize='+10}" th:if="${pageNumber} le ${totalPage}-1 ">下一页</a>
+   <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} le ${totalPage}-1 ">尾页</a>
+  -->
+
+
+
+  <!--
+  <a th:href="@{'/note/test/'+${1}+'/'+${10}}">首页</a>
+  <a th:href="@{'/note/test/'+${pageNumber-1}+'/'+${10}}">上一页</a>
+  <a th:href="@{'/note/test/'+${pageNumber+1}+'/'+${10}}">下一页</a>
+  <a th:href="@{'/note/test/'+${totalPage}+'/'+${10}}">尾页</a><br>-->
+
+  <button><a href="/note/addIndx">新增</a></button>
+  </body>
+  </html>

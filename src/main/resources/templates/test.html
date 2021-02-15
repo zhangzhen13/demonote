@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+</head>
+<body>
+<h2>这是一个新页面</h2>
+<!--
+localhost:8009/info?name=tom&age=10
+
+<a th:href="@{'/info/?name='+${tom}+'&age='+${age}}">名字</a>
+
+-->
+<body>
+<!--
+<tr style="text-align:center">
+    <th>编码</th>
+    <th>名称</th>
+    <th>内容</th>
+</tr>
+<div th:each="lists: ${list}">
+    <div th:text="${lists.id}">Oranges</div>
+    <div th:text="${lists.name}">Oranges</div>
+    <div th:text="${lists.content}">Oranges</div>
+
+     <td th:text="${lists.id}"></td>
+        <td th:text="${lists.name}"></td>
+        <td th:text="${lists.content}"></td>
+        <a th:href="">详情</a>
+</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<table class="table table-striped table-bordered table-hover text-center">
+    <thead>
+    <tr style="text-align:center">
+        <th>编码</th>
+        <th>名称</th>
+        <!-- <th>内容</th>2020.12.28内容列去掉-->
+
+
+
+
+
+
+<!--
+     <th>操作</th>
+    </tr>
+    </thead>
+    <tr th:each="note: ${notelist}">
+        <td th:text="${note.id}"></td>
+        <td><a  th:href="@{'/note/details/'+${note.id}}" th:value="${note.name}" th:text="${note.name}" style="text-decoration: none"></a></td>
+        <!--  <td th:text="${lists.content}"></td>   2020.12.28内容列去掉-->
+
+
+
+
+
+
+<!--
+        <td>
+            <a th:href="@{'/note/updatePage/'+${note.id}}">修改</a>
+            <a th:href="@{'/note/delete/'+${note.id}}">删除</a>
+
+        </td>
+    </tr>
+</table>
+http://localhost:8009/note/test?pageNumber=1&pageSize=
+localhost:8009/note/test/1/10网址传参分页方式1
+<a th:href="@{'/note/page/'+${1}+'/'+${10}}">首页</a>
+<a th:href="@{'/note/page/'+${pageNumber-1}+'/'+${10}}">上一页</a>
+<a th:href="@{'/note/page/'+${pageNumber+1}+'/'+${10}}">下一页</a>
+<a th:href="@{'/note/page/'+${totalPage}+'/'+${10}}">尾页</a>
+
+-->
+
+
+</body>
+
+</body>
+</html>
