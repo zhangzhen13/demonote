@@ -45,61 +45,21 @@
           </td>
       </tr>
   </table>
-  <!--   http://localhost:8009/note/test?pageNumber=1&pageSize=10不传值，有默认值。分页方式2-->
-  <!--   <首页 我页码等于1的时候显示 禁用><首页 我页码大于1的时候显示 不禁用>   -->
-  <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:if="${pageNumber} eq '1' " onclick="return false" >首页</a>
-  <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:if="${pageNumber} gt '1' " onclick="return true" >首页</a>
-  <a th:href="@{'/note/test?pageNumber='+${pageNumber-1}+'&pageSize='+10}">上一页</a>
+  <!--   <首页方式1 我页码不等于1时候【首页】 不禁用； 我页码等于1的时候【首页】 禁用>   （pageNumber!=1）为true则按钮可用。结果为false为不可用-->
+  <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|" >首页</a>
+  <!--上一页：pageNumber>1 为true时，上一页可用。反之则不可用-->
+  <a th:href="@{'/note/test?pageNumber='+${pageNumber-1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|">上一页</a>
 
-  <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" >[[${i}]]</a>
-  <a th:href="@{#}">测试点击不跳转</a>
-  <!--<a th:href="${#}">测试点击不跳转</a>
-    <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" onclick="return false">[[${i}]]</a>
-   <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" th:if="${pageNumber} eq ${i}" th:disabled="false" onclick="return false">[[${i}]]</a>
+  <!--上一页：pageNumber 不等于当前页码时 为true时，其他页码可用。pageNumber==当前页码，则当前页码不允许点击。-->
+  <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=i}|">[[${i}]]</a>
 
 
-  <div class="pagination" th:each="i:${#numbers.sequence(1,totalPage)}">
+  <!-- pageNumber：<span th:text="${pageNumber}"></span>显示当前页码-->
 
-      <a th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}">[[${i}]]</a>
-      <!--<a th:href="@{'/note/test?pageNumber='+${i}}">[[${i}]]</a>   -->
-<!--     <a th:href=""></a>    <a th:href="@{'queryAllByClass?sclass='+${page}+'&pageNumber='+${i}}">[[${i}]]</a>   -->
-  <!--  </div> <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} lt ${totalPage} " onclick="return false">尾页</a>
-<a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} le ${totalPage}-1 " onclick="return true">尾页</a>
-    -->
-  <a th:href="@{'/note/test?pageNumber='+${pageNumber+1}+'&pageSize='+10}">下一页</a>
-  <!--   <尾页 我页码等于【总页数】的时候显示 禁用><尾页 我页码小于等于【总页数-1——倒数第二页】的时候显示 不禁用>   -->
-  <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} le ${totalPage}-1 " onclick="return true">尾页</a>
-  <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} eq ${totalPage} " onclick="return false">尾页</a>
-<!--
-le：less equal（小于等于）<=-->
-  <!--ge：great equal（大于等于）>=-->
-  <!--gt：great than（大于）>
-  ge：great equal（大于等于）>=
-  eq：equal（等于）==
-  lt：less than（小于）<
-  le：less equal（小于等于）<=
-  ne：not equal（不等于）!=-->
-  <!--
- <div th:each="pagE:${pages}">
-     <div th:text="${pagE}"></div>
- </div>
-   <a th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:if="${pageNumber} ge '2' ">首页</a>
-   <a th:href="@{'/note/test?pageNumber='+${pageNumber-1}+'&pageSize='+10}" th:if="${pageNumber} ge '2' ">上一页</a>
-
-  <a th:value="${pages}" th:data="${pages}" th:text="${pages}"></a>
-  <a th:text="${pages}"></a>
-
-   <a th:href="@{'/note/test?pageNumber='+${pageNumber+1}+'&pageSize='+10}" th:if="${pageNumber} le ${totalPage}-1 ">下一页</a>
-   <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:if="${pageNumber} le ${totalPage}-1 ">尾页</a>
-  -->
-
-
-
-  <!--
-  <a th:href="@{'/note/test/'+${1}+'/'+${10}}">首页</a>
-  <a th:href="@{'/note/test/'+${pageNumber-1}+'/'+${10}}">上一页</a>
-  <a th:href="@{'/note/test/'+${pageNumber+1}+'/'+${10}}">下一页</a>
-  <a th:href="@{'/note/test/'+${totalPage}+'/'+${10}}">尾页</a><br>-->
+  <!--下一页：pageNumber<总页数 为true时，下一页可用。反之则不可用-->
+  <a th:href="@{'/note/test?pageNumber='+${pageNumber+1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=totalPage}|">下一页</a>
+  <!--上一页：pageNumber 不等于【总页数】 为true时，尾页可用。反之则不可用-->
+  <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:onclick="|return ${pageNumber!=totalPage}|">尾页</a>
 
   <button><a href="/note/addIndx">新增</a></button>
   </body>
