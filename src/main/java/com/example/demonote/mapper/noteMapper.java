@@ -13,7 +13,7 @@ public interface noteMapper {
     List<note> selectAllnote();
 
     //新增数据
-    @Insert("insert into Note(name,content) values(#{name},#{content})")
+    @Insert("insert into note(name,content) values(#{name},#{content})")
     public void addNote(note note);
     //删除数据
     @Delete("delete from note where id =#{id}")

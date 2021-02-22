@@ -5,8 +5,18 @@
     <title>用户列表</title>
     <!-- 引入 Bootstrap -->
     <!--  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
-  </head>
     <style>a{text-decoration: none}</style>
+    <script language="JavaScript">
+        function del() {
+            if (confirm("确认是否删除！")){
+                return true;
+            }else {
+                return false;
+            }
+        }
+    </script>
+</head>
+
   <body>
   <!--
   <tr style="text-align:center">
@@ -41,8 +51,17 @@
          <!--  <td th:text="${lists.content}"></td>   2020.12.28内容列去掉-->
           <td>
               <a th:href="@{'/note/updatePage/'+${lists.id}}">修改</a>
+              <a th:href="@{'/note/delete/'+${lists.id}}" th:onclick="|return confirm('确认要删除吗')|">删除</a>
+
+              <!--/*
+              删除方式1：无弹窗提示
               <a th:href="@{'/note/delete/'+${lists.id}}">删除</a>
-             <!-- <a th:href="@{'/note/details/'+${lists.id}}">详情</a>   2020.12.28详情列去掉-->
+              删除方式2：使用JavaScript方式删除，有弹窗提示
+               <a th:href="@{'/note/delete/'+${lists.id}}" th:onclick="|javascript:return del()|">删除</a>
+              */-->
+
+
+              <!--<a th:href="@{'/note/details/'+${lists.id}}">详情</a>   2020.12.28详情列去掉-->
           </td>
       </tr>
   </table>
