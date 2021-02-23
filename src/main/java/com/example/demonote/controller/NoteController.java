@@ -125,7 +125,7 @@ public class NoteController {
     //删除数据
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, HttpServletResponse servletResponse) throws IOException {
-        int cout = service.delete(id);
+        int cout = service.deleted(id);
         if (cout==1){
             servletResponse.sendRedirect("/note/test");
         }

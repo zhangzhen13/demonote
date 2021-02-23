@@ -70,6 +70,12 @@
              <artifactId>javax.servlet-api</artifactId>
              <version>3.0.1</version>
          </dependency><-->
+        <!--逻辑删除配置-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.2.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

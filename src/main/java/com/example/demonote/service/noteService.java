@@ -14,7 +14,7 @@ public interface noteService {
     //根据查找的数据进行修改
     int update(note note);
     //删除
-    int delete(int id);
+    int deleted(int id);
 
     //分页查询
     List<note> selectPage(int pageNumber,int pageSize);
