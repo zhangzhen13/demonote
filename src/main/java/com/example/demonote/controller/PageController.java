@@ -146,4 +146,63 @@ public class PageController {
  *         return "index";
  *     }
  */
+
+/**
+ *
+ * 数据库增字段，创建新表用户登录
+
+ create database Book;
+ use Book;
+ /*drop table NoteBook;
+create table NoteBook(
+            noteBookId int primary key AUTO_INCREMENT,
+            noteBookName varchar(50) not null
+            );
+    insert into notebook(noteBookName) values('天覆吾，地载吾，天地生吾有意无');
+    insert into notebook(noteBookName) values('不然绝粒升天衢，不然鸣珂游帝都');
+    insert into notebook(noteBookName) values('焉能不贵复不去，空作昂藏一丈夫');
+
+    select * from NoteBook;
+    show databases like 'book';
+
+    use Book;
+    drop table Note;
+    create table Note(
+            id int primary key auto_increment,
+    `name` varchar(50) not null,
+    content varchar(200)
+);
+#在表中插入一个字段 alter table 表名 add 字段名 字段类型 not null default '0';
+    alter table note add isDelete int(1) not null default '0';
+#逻辑删除语句：删除时 update user set deleted=1 where id =1 and deleted=0查找时 select * from user where deleted=0
+    update note set isDelete =1 where id = 23;
+    select * from note where isDelete =0;
+    select count(*) from note where isDelete = 0;
+    insert into Note(`name`,content) values('天覆吾，地载吾，天地生吾有意无','记事1');
+    insert into Note(`name`,content) values('不然绝粒升天衢，不然鸣珂游帝都','记事2');
+    insert into Note(`name`,content) values('焉能不贵复不去，空作昂藏一丈夫','记事3');
+    select * from Note;
+
+
+    update note set name ='123456' ,content = '654321' where id =17;
+
+    select * from note where isDelete =0 limit 0,10 ;
+    select * from note;
+
+
+创建用户登录表
+    create table user(
+            id int primary key auto_increment,
+    `username` varchar(50) not null,
+            `password` varchar(50) not null
+            );
+    insert into user(`username`,`password`)values('zhang','000000');
+    insert into user(`username`,`password`)values('wang','000000');
+    insert into user(`username`,`password`)values('li','000000');
+    select * from user;
+
+    select * from user where username = 'zhang' and password = '111';
+
+ * */
+
 }
