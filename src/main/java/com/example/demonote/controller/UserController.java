@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
     @Autowired
@@ -21,11 +23,18 @@ public class UserController {
         return "login";
     }
     @RequestMapping("loginForm")
-    public String logins(Model model, String username,String password) {
+    public String logins(Model model, String username, String password, HttpSession session) {
         User user = service.login(username,password);
 
         if (user!=null){
             if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+//                User user1 = new User();
+//                user1.setUsername(username);
+//                user1.setPassword(password);
+//                session.setAttribute("user",user1);
+                Boolean isLogined = true;
+                session.setAttribute("isLogined",isLogined);//设置isLogined值，在LoginInterceptor中获取
+
                 return "redirect:/note/test";
             }else {
                 return "login";
