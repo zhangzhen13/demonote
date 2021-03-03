@@ -35,7 +35,7 @@ public class UserController {
                 Boolean isLogined = true;
                 session.setAttribute("isLogined",isLogined);//设置isLogined值，在LoginInterceptor中获取
 
-                return "redirect:/note/test";
+                return "redirect:/note/noteList";
             }else {
                 return "login";
             }

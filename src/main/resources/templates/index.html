@@ -66,20 +66,20 @@
       </tr>
   </table>
   <!--   <首页方式1 我页码不等于1时候【首页】 不禁用； 我页码等于1的时候【首页】 禁用>   （pageNumber!=1）为true则按钮可用。结果为false为不可用-->
-  <a style="text-decoration: none" th:href="@{'/note/test?pageNumber='+1+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|" th:style="${pageNumber!=1}?|color: black|:|color: Gray|">首页</a>
+  <a style="text-decoration: none" th:href="@{'/note/noteList?pageNumber='+1+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|" th:style="${pageNumber!=1}?|color: black|:|color: Gray|">首页</a>
   <!--上一页：pageNumber>1 为true时，上一页可用。反之则不可用-->
-  <a th:href="@{'/note/test?pageNumber='+${pageNumber-1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|" th:style="${pageNumber!=1}?|color: black|:|color: Gray|">上一页</a>
+  <a th:href="@{'/note/noteList?pageNumber='+${pageNumber-1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|" th:style="${pageNumber!=1}?|color: black|:|color: Gray|">上一页</a>
 
   <!--上一页：pageNumber 不等于当前页码时 为true时，其他页码可用。pageNumber==当前页码，则当前页码不允许点击。-->
-  <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/test?pageNumber='+${i}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=i}|" th:style="${pageNumber!=i}?|color: black|:|color: red|">[[${i}]]</a>
+  <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/noteList?pageNumber='+${i}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=i}|" th:style="${pageNumber!=i}?|color: black|:|color: red|">[[${i}]]</a>
 
 
   <!-- pageNumber：<span th:text="${pageNumber}"></span>显示当前页码-->
 
   <!--下一页：pageNumber<总页数 为true时，下一页可用。反之则不可用    下一页和尾页在controller里面有做限制，所以，这里使用一样的判断-->
-  <a th:href="@{'/note/test?pageNumber='+${pageNumber+1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=totalPage}|" th:style="${pageNumber!=totalPage}?|color: black|:|color: Gray|">下一页</a>
+  <a th:href="@{'/note/noteList?pageNumber='+${pageNumber+1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=totalPage}|" th:style="${pageNumber!=totalPage}?|color: black|:|color: Gray|">下一页</a>
   <!--上一页：pageNumber 不等于【总页数】 为true时，尾页可用。反之则不可用-->
-  <a th:href="@{'/note/test?pageNumber='+${totalPage}+'&pageSize='}"+10 th:onclick="|return ${pageNumber!=totalPage}|" th:style="${pageNumber!=totalPage}?|color: black|:|color: Gray|">尾页</a>
+  <a th:href="@{'/note/noteList?pageNumber='+${totalPage}+'&pageSize='}"+10 th:onclick="|return ${pageNumber!=totalPage}|" th:style="${pageNumber!=totalPage}?|color: black|:|color: Gray|">尾页</a>
 
   <button><a href="/note/addIndx">新增</a></button>
   </body>

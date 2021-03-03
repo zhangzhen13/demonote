@@ -27,7 +27,7 @@ public class NoteController {
      * @param pageSize
      * @return
      */
-    @RequestMapping("/test")
+    @RequestMapping("/noteList")
     public String hello(Model model,@RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
                                     @RequestParam(name = "pageSize" ,defaultValue = "10") int pageSize) {
 
@@ -99,7 +99,7 @@ public class NoteController {
    // @ResponseBody
     public String add(note note){
         service.addNote(note);
-        return "redirect:/note/test";
+        return "redirect:/note/noteList";
     }
 
     /**
@@ -120,14 +120,14 @@ public class NoteController {
 
         service.update(note);
         System.out.println(note);
-        return "redirect:/note/test";
+        return "redirect:/note/noteList";
     }
     //删除数据
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, HttpServletResponse servletResponse) throws IOException {
         int cout = service.deleted(id);
         if (cout==1){
-            servletResponse.sendRedirect("/note/test");
+            servletResponse.sendRedirect("/note/noteList");
         }
         return "error";
     }

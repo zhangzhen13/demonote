@@ -33,7 +33,7 @@
     <!--    内容：<textarea rows="10" cols="30" type="text" th:value="${notes.content}" th:text="${notes.content}"></textarea><br>-->
     <!--内容 <div type="text"name="content" th:text="${notes.content}"></div>-->
    内容：<span name = "content"  th:text="${notes.content}"></span><br>
-     <button><a href="/note/test">返回列表</a></button>
+     <button><a href="/note/noteList">返回列表</a></button>
     <button><a th:href="@{'/note/updatePage/'+${notes.id}}">修改</a></button>
  </div>
  </body>

@@ -23,7 +23,7 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有请求，排出两个请求"/login",”/loginForm“,不需要拦截登录请求.添加是，把不能访问的路径添加进来.排除路径模式:excludePathPatterns;添加路径模式addPathPatterns
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/note/test","/note/addIndx","/note/addNote","/note/updatePage/{id}","/note/update","/note/delete/{id}","/note/details/{id}")
+                .addPathPatterns("/note/noteList","/note/addIndx","/note/addNote","/note/updatePage/{id}","/note/update","/note/delete/{id}","/note/details/{id}")
                 .excludePathPatterns("/login","/loginFrom");
 
     }
