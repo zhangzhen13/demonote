@@ -25,7 +25,8 @@
 
 -->
 
-<div th:replace="header :: myHeader"></div>
+
+<div th:replace="header :: myHeader"></div><!--将header页面嵌入到当前页-->
 
 <div th:each="notes:${notes}">
     编码:<span name = "id"  th:text="${notes.id}"></span><br>

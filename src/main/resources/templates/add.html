@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<div th:replace="header :: myHeader"></div>
+
+<div th:replace="header :: myHeader"></div><!--将header页面嵌入到当前页-->
 <div th:fragment="add">
 <div style="width:600px;height:100%;">
     <form action="/note/addNote" method="post">
