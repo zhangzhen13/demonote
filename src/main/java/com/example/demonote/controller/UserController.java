@@ -6,9 +6,11 @@ import com.example.demonote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,14 +36,25 @@ public class UserController {
 //                session.setAttribute("user",user1);
                 Boolean isLogined = true;
                 session.setAttribute("isLogined",isLogined);//设置isLogined值，在LoginInterceptor中获取
-
+                String hello = "你好！";
+                session.setAttribute("hello",hello);
+                session.setAttribute("username",username);//设置username值，在各个页面上获取用户名并显示
+                session.setAttribute("user",user);//设置user，用于退出该用户
                 return "redirect:/note/noteList";
             }else {
                 return "login";
             }
         }
         return "login";
+    }
+    //账号退出
+    @GetMapping("loginOut")
+    public String loginOut(HttpSession session){
+        session.removeAttribute("user");//退出登录则清除session中的用户信息
+        return "login";
+    }
 
+}
         /**
          * 方式2
          *mapper
@@ -79,5 +92,3 @@ public class UserController {
          }
          * */
 
-    }
-}

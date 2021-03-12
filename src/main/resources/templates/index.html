@@ -33,17 +33,21 @@
           <td th:text="${lists.name}"></td>
           <td th:text="${lists.content}"></td>
           <a th:href="">详情</a>
-  </div>-->
+  </div>
+  <div th:replace="header :: myHeader"></div>
+  <div th:fragment="myindex">-->
+  <div th:replace="header :: myHeader"></div>
 
   <table class="table table-striped table-bordered table-hover text-center">
       <thead>
       <tr style="text-align:center">
           <th>编码</th>
           <th>名称</th>
-          <!-- <th>内容</th>2020.12.28内容列去掉-->
+          <!-- <th>内容</th>2020.12.28内容列去掉<span sec:authentication="name"></span> <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></span>-->
            <th>操作</th>
        </tr>
        </thead>
+
 
        <tr th:each="lists: ${list}">
            <td th:text="${lists.id}"></td>
@@ -82,5 +86,6 @@
   <a th:href="@{'/note/noteList?pageNumber='+${totalPage}+'&pageSize='}"+10 th:onclick="|return ${pageNumber!=totalPage}|" th:style="${pageNumber!=totalPage}?|color: black|:|color: Gray|">尾页</a>
 
   <button><a href="/note/addIndx">新增</a></button>
+
   </body>
   </html>

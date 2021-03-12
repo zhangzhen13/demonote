@@ -24,6 +24,9 @@
 </div>
 
 -->
+
+<div th:replace="header :: myHeader"></div>
+
 <div th:each="notes:${notes}">
     编码:<span name = "id"  th:text="${notes.id}"></span><br>
     <!-- 名称：<input type="text" th:value="${notes.name}"><br>-->
@@ -36,5 +39,6 @@
      <button><a href="/note/noteList">返回列表</a></button>
     <button><a th:href="@{'/note/updatePage/'+${notes.id}}">修改</a></button>
  </div>
+</div>
  </body>
  </html>

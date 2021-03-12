@@ -5,8 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-
+<div th:replace="header :: myHeader"></div>
 <div style="width:600px;height:100%;">
+
     <form action="/note/update" method="post">
         <td th:each="notes:${notes}"></td>
         <input name="id" type="hidden" th:value="${notes.id}" ><br>
