@@ -39,7 +39,7 @@ public interface noteMapper {
 
 
     //分页查询
-    @Select("select * from note where isDelete =0 limit #{pageNumber},#{pageSize}")//pageNo起始数据位置 pageSize每页条数
+    @Select("select * from note where isDelete =0 limit #{pageNumber},#{pageSize}")//pageNumber起始数据位置 pageSize每页条数
     List<note> selectPage(@Param("pageNumber") int pageNumber,@Param("pageSize")int pageSize);
     //List<note> selectPage(@Param("pageNumber") int pageNumber,@Param("pageSize")int pageSize);
     //@Results({

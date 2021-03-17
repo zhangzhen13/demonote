@@ -31,6 +31,7 @@ public class NoteController {
     public String hello(Model model,@RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
                                     @RequestParam(name = "pageSize" ,defaultValue = "10") int pageSize) {
 
+
         int count = service.getCount();//总条数
         //总页数
         int totalPage;  //总页数
@@ -44,10 +45,16 @@ public class NoteController {
 //            pages = i;
 //        }
         //判断页码最大值最小值，做一个限制
-        if (pageNumber < 1){
+        if (pageNumber < 1 ){
             pageNumber = 1;
         }else if(pageNumber > totalPage){
-            pageNumber = totalPage;
+            pageNumber = totalPage;//当pageNumber大于总页数，则限制页码最大值.
+        }
+
+//        pageNumber<1 ? 1:(pageNumber>totalPage? totalPage:1)
+
+        if (pageNumber<1){
+            pageNumber = 1;//当totalPage=0时，这里设置pageNumber=1，用于给startCurrentPage设置值。以免pageNumber=0，startCurrentPage=-10情况
         }
         int starCurrentPage = (pageNumber - 1)* pageSize;//从第几个数据开始
         List<note> notes =service.selectPage(starCurrentPage,pageSize);
