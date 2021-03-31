@@ -77,7 +77,7 @@
   <a th:href="@{'/note/noteList?pageNumber='+${pageNumber-1}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=1}|" th:style="${pageNumber!=1}?|color: black|:|color: Gray|">上一页</a>
 
   <!--上一页：pageNumber 不等于当前页码时 为true时，其他页码可用。pageNumber==当前页码，则当前页码不允许点击。-->
-  <a th:each="i:${#numbers.sequence(1,totalPage)}" th:href="@{'/note/noteList?pageNumber='+${i}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=i}|" th:style="${pageNumber!=i}?|color: black|:|color: red|">[[${i}]]</a>
+  <a th:each="i:${#numbers.sequence(1,totalPage)}"  th:if="${i!=0}" th:href="@{'/note/noteList?pageNumber='+${i}+'&pageSize='+10}" th:onclick="|return ${pageNumber!=i}|" th:style="${pageNumber!=i}?|color: black|:|color: red|">[[${i}]]</a>
 
 
   <!-- pageNumber：<span th:text="${pageNumber}"></span>显示当前页码-->

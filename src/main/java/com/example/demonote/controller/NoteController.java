@@ -35,11 +35,13 @@ public class NoteController {
         int count = service.getCount();//总条数
         //总页数
         int totalPage;  //总页数
+
         if (count % pageSize == 0) {
             totalPage = count / pageSize;//总页数 当总条数除以每页显示数量结果无余数时，则总页数 = 总条数/每页条数
         }else {
             totalPage = count / pageSize + 1;//总页数 当总条数除以每页显示数量有余数时，则总页数 = 总条数/每页数 +1.除不尽的基础上多一页
         }
+
 //        int pages = 0;
 //        for (int i = 1;i<=totalPage;i++){
 //            pages = i;
