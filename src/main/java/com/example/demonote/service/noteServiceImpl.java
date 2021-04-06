@@ -50,4 +50,16 @@ public class noteServiceImpl implements noteService{
     public int getCount() {
         return mapper.getCount();
     }
+    //查询每个用户的notelist
+
+    //查询每个用户的note数据
+    @Override
+    public List<note> userList(int id) {
+        return mapper.userList(id);
+    }
+    //当前用户分页查询
+    @Override
+    public List<note> selectUserPage(int id, int pageNumber, int pageSize) {
+        return mapper.selectUserPage(id, pageNumber, pageSize);
+    }
 }

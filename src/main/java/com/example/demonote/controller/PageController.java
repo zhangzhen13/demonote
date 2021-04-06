@@ -202,7 +202,118 @@ create table NoteBook(
     select * from user;
 
     select * from user where username = 'zhang' and password = '111';
-
  * */
-
 }
+/**
+ * 新数据库  book
+ *老表
+        *create database Book;
+        *use Book;
+        *drop table NoteBook;
+        *create table NoteBook(
+        *noteBookId int primary key AUTO_INCREMENT,
+        *noteBookName varchar(50)not null
+        *);
+        *insert into notebook(noteBookName)values('天覆吾，地载吾，天地生吾有意无');
+        *insert into notebook(noteBookName)values('不然绝粒升天衢，不然鸣珂游帝都');
+        *insert into notebook(noteBookName)values('焉能不贵复不去，空作昂藏一丈夫');
+        *select*from NoteBook;
+        *
+        *  springboot项目表
+        *show databases like'book';
+        *create database Book;
+        *use Book;
+        *drop table Note;
+ *create table Note(
+ * 	id int primary key auto_increment,
+ *     `name` varchar(50) not null,
+ *     content varchar(200)
+ * );
+ * #在表中插入一个字段 alter table 表名 add 字段名 字段类型 not null default '0';
+ * alter table note add isDelete int(1) not null default '0';
+ * #逻辑删除语句：删除时 update user set deleted=1 where id =1 and deleted=0查找时 select * from user where deleted=0
+ * update note set isDelete =1 where id = 23;
+ * select * from note where isDelete =0;
+ * select count(*) from note where isDelete = 0;
+ * insert into Note(`name`,content,uId) values('天覆吾，地载吾，天地生吾有意无','记事1',1);
+ * insert into Note(`name`,content,uId) values('不然绝粒升天衢，不然鸣珂游帝都','记事2',2);
+ * insert into Note(`name`,content,uId) values('焉能不贵复不去，空作昂藏一丈夫','记事3',3);
+ * update note set isDelete =1 where id= 35;
+ * update note set isDelete =0;
+ * update note set name ='123456' ,content = '654321' where id =17;
+ * select * from note where isDelete =0 limit 0,10 ;
+ * select * from note;
+ *
+ * create table user(
+ * 	id int primary key auto_increment,
+ * 	`username` varchar(50) not null,
+ * 	`password` varchar(50) not null
+ * );
+ * insert into user(`username`,`password`)values('zhang','000000');
+ * insert into user(`username`,`password`)values('wang','000000');
+ * insert into user(`username`,`password`)values('li','000000');
+ * select * from user;
+ * select * from user where username = 'zhang' and password = '111';
+ * /* 	set sql_safe_updates=0  关闭安全模式
+ * 	set_sql_safe_updates=1  开启安全模式
+ *
+ *note表添加外键
+        *delete from note;/*删除表中所有数据
+        *alter table note modify column uId int not null;/*将外键设置为not null
+        *alter table note add uId int;/*在note表中新增一个uId字段
+        *alter table note add constraint noteUserfk foreign key(uId)references user(id);/*将外键与主表中的键进行关联
+        *
+        * /*解除外键约束——去掉表和表之间的链接
+        *alter table note drop foreign key noteUserfk;
+        * /*
+ * 	建表时增加外键
+ * 		mysql> create table fk_test(
+ * 			>	course_id int auto_increment primary key,
+ * 			>	course_name carchar(30),
+ * 			>	id int,
+ * 			>	constraint FK_1 foreign key(id) references test(id)
+ * 			>);
+ * 	建表完成过后，通过sql语句增加外键
+ * 		alter table table-name add constraint 外键名 foreign key(字段名) references 引用表明(字段名)
+ * 	删除主外键关联表（下列语句不对）
+ * 		alter table table-name add constraint 外键名 foreign key(字段名) references 引用表明(字段名) on delete cascade
+ *
+ *
+ *     表名为 orderitem
+ * 		CONSTRAINT `orderitem_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)//建立外键
+ * 		alter table orderitem drop foreign key orderitem_ibfk_1;//删除外键关联
+ *         alter table 表名 drop foreign key 外键名;
+ *
+        *show create table note;
+        *
+        *select*from note;
+        *select*from user;
+        *
+        * /*链接查询与内外键的关系：
+ * 	连接的 连接条件：A表的主键 = B表的外键如果做连接的两表没有主外键关系，那么连接结果没有意义。
+ * 	例：学生表和选课表做连接，select *from 学生表,选课表where 学生表.学号（主键）=选课表.学号（外键）
+ * 	主外键可以建级联级触发器，用来做级联删除、更新。作用原理还是因为主外键将两表联系。
+ *
+        *select*from user,note where user.id=note.uId;
+        * #那回到记事本那边那个问题，一个用户没有记事，体现在数据库是什么样的
+        *select note.*from note left join user on note.uId=user.id where name='3';
+        *select note.*from note left join user on note.uId=user.id;
+        *
+        * #写个句子查询每个房间住了几个人
+        *select*from note left join user on note.uId=user.id;
+        *
+        *select count(*)from note;
+        *
+        *select count(*)from user;
+        * #查询某个用户有多少条数据，user id作为判定条件
+        *select note.*from note left join user on note.uId=user.id where user.id=3;
+        *select*from note where uId=3;#不就可以了
+        * #select*from note where uId= #{id} ，不就可以了
+        *
+        * #select*from note where isDelete=0 limit #{pageNumber},#{pageSize}
+        *
+        *select*from note where isDelete=0 limit 0,10;
+        * #查询当前用户的数据，并按每页10条显示
+        *select note.*from note left join user on note.uId=user.id where user.id=3 and isDelete=0 limit 0,10;
+ *
+ * */

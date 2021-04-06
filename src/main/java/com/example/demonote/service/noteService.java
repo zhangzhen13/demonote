@@ -20,4 +20,8 @@ public interface noteService {
     List<note> selectPage(int pageNumber,int pageSize);
     //查询总条数
     int getCount();
+    //查询每个用户的note数据
+    List<note> userList(int id);
+    //每个用户列表
+    List<note> selectUserPage(int id,int pageNumber,int pageSize);
 }

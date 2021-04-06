@@ -11,5 +11,6 @@ public class note {
     private String content;
     @TableLogic
     private Integer isDelete;
+    private Integer uId;
 }
 

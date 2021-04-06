@@ -41,6 +41,7 @@ public class UserController {
                 session.setAttribute("hello",hello);
                 session.setAttribute("username",username);//设置username值，在各个页面上获取用户名并显示
                 session.setAttribute("user",user);//设置user，用于退出该用户
+                session.setAttribute("id",user.getId());
                 return "redirect:/note/noteList";
             }else {
                 return "login";

@@ -47,7 +47,14 @@ public interface noteMapper {
     //        @Result(property = "pageNumber", column = "pageNumber"),
     //        @Result(property = "pageSize", column = "pageSize"),
     //})
+    //当前用户分页查询
+    @Select("select note.* from note left join user on note.uId = user.id where user.id = #{id} and isDelete =0 limit #{pageNumber},#{pageSize}")
+    List<note> selectUserPage(@Param("id") int id,@Param("pageNumber") int pageNumber,@Param("pageSize")int pageSize);
     //查询总条数
     @Select("select count(*) from note where isDelete = 0")
     public int getCount();
+    //根据每个用户，查出各自列表
+    @Select("select note.* from note left join user on note.uId = user.id where user.id = #{id}")
+    List<note> userList(int id);
+
 }

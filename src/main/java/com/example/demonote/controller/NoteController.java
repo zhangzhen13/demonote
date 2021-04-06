@@ -3,6 +3,7 @@ package com.example.demonote.controller;//controll控制器
 import com.example.demonote.domain.note;
 import com.example.demonote.service.noteService;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,9 +30,12 @@ public class NoteController {
      * @return
      */
     @RequestMapping("/noteList")
-    public String hello(Model model,@RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
-                                    @RequestParam(name = "pageSize" ,defaultValue = "10") int pageSize) {
+    public String userNoteList(Model model,
+                                    @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+                                    @RequestParam(name = "pageSize" ,defaultValue = "10") int pageSize,
+                        HttpSession session,HttpServletRequest request) {
 
+//        List<note> userList = service.userList(userId);
 
         int count = service.getCount();//总条数
         //总页数
@@ -59,7 +64,14 @@ public class NoteController {
             pageNumber = 1;//当totalPage=0时，这里设置pageNumber=1，用于给startCurrentPage设置值。以免pageNumber=0，startCurrentPage=-10情况
         }
         int starCurrentPage = (pageNumber - 1)* pageSize;//从第几个数据开始
-        List<note> notes =service.selectPage(starCurrentPage,pageSize);
+
+//        int userId = request.getSession().getAttribute("id");
+//        List<note> notes =service.selectPage(starCurrentPage,pageSize);
+//        notes =service.selectPage(starCurrentPage,pageSize);
+        //获取登录controller中存储的id值
+        int id = (int) request.getSession().getAttribute("id");
+        List<note> notes = service.selectUserPage(id,starCurrentPage,pageSize);
+
 //        model.addAttribute("pages",pages);
         model.addAttribute("list" ,notes);
         model.addAttribute("pageNumber",pageNumber);

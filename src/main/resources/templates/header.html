@@ -9,6 +9,7 @@
 <div th:fragment="myHeader">
 嗨<span th:text="${session.hello}+${session.username}"></span>
     <a th:href="@{'/loginOut'}">退出</a>
+    <span th:text="${session.id}"></span>
 </div>
 
 </body>
