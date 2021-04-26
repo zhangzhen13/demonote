@@ -1,6 +1,7 @@
 package com.example.demonote.service;//service层
 
 import com.example.demonote.domain.note;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ public interface noteService {
     //根据查找的数据进行修改
     int update(note note);
     //删除
-    int deleted(int id);
+//    int deleted(int id);
+    int deleted(int id,int uId);
 
     //分页查询
     List<note> selectPage(int pageNumber,int pageSize);

@@ -11,6 +11,6 @@ import java.util.List;
 public interface UserMapper {
 
     //查询某用户
-    @Select("select * from user where username = #{username} and password = #{password}; ")
+    @Select("select * from user where username = #{username} and password = #{password}")
     User login(@Param("username") String username,@Param("password") String password);
 }

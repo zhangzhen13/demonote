@@ -36,8 +36,8 @@ public class noteServiceImpl implements noteService{
 
     //删除数据
     @Override
-    public int deleted(int id) {
-        return mapper.deleted(id);
+    public int deleted(int id,int uId) {
+        return mapper.deleted(id,uId);
     }
 
     //分页查询

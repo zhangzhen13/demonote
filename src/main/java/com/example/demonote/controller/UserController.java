@@ -4,11 +4,13 @@ import com.example.demonote.domain.User;
 import com.example.demonote.domain.note;
 import com.example.demonote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -22,11 +24,15 @@ public class UserController {
     }
     //进入登录界面
     @RequestMapping("login")
-    public String login(){
-        return "login";
+    public String login(HttpSession session){
+        if(session.getAttribute("user")!=null){
+            return "redirect:/note/noteList";
+        }else {
+            return "login";
+        }
     }
     @RequestMapping("loginForm")
-    public String logins(Model model, String username, String password, HttpSession session) {
+    public String logins(Model model, String username, String password, HttpSession session, HttpServletRequest request) {
         User user = service.login(username,password);
 
         if (user!=null){
@@ -42,6 +48,11 @@ public class UserController {
                 session.setAttribute("username",username);//设置username值，在各个页面上获取用户名并显示
                 session.setAttribute("user",user);//设置user，用于退出该用户
                 session.setAttribute("id",user.getId());
+                Boolean rememberMe = Boolean.parseBoolean(request.getParameter("rememberMe"));//判断是否勾选了【记住我】
+                if (rememberMe){
+                    session.setMaxInactiveInterval(1*24*60*60);//设置session持久化时间。30天
+                }
+//                session.setMaxInactiveInterval(1*24*60*60);//设置session持久化时间。30天
                 return "redirect:/note/noteList";
             }else {
                 return "login";
@@ -53,6 +64,7 @@ public class UserController {
     @GetMapping("loginOut")
     public String loginOut(HttpSession session){
         session.removeAttribute("user");//退出登录则清除session中的用户信息
+//        sessionname = new Session("sess","");
         return "login";
     }
 

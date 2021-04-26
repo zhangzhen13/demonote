@@ -18,8 +18,7 @@ public class WebConfigurer implements WebMvcConfigurer {
 
     }
     //这个方法用来注册拦截器，我们自己写好的拦截器需要通过这里添加注册才能生效
-
-    @Override
+    @Override  // session第一版登录拦截器
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有请求，排出两个请求"/login",”/loginForm“,不需要拦截登录请求.添加是，把不能访问的路径添加进来.排除路径模式:excludePathPatterns;添加路径模式addPathPatterns
         registry.addInterceptor(loginInterceptor)

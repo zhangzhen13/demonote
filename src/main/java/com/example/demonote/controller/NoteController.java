@@ -118,8 +118,10 @@ public class NoteController {
     //新增方法返回值为String类型
     @RequestMapping("addNote")
    // @ResponseBody
-    public String add(note note){
-        service.addNote(note);
+    public String add(note note,HttpSession session,HttpServletRequest request){
+        int id = (int)request.getSession().getAttribute("id");//获取session里面存储的id
+        note.setUId(id);//将获取的id赋给note对象的外键id值
+        service.addNote(note);//添加这个对象
         return "redirect:/note/noteList";
     }
 
@@ -145,8 +147,9 @@ public class NoteController {
     }
     //删除数据
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id, HttpServletResponse servletResponse) throws IOException {
-        int cout = service.deleted(id);
+    public String delete(@PathVariable Integer id, HttpServletResponse servletResponse,HttpSession session,HttpServletRequest request ) throws IOException {
+        int uId = (int)request.getSession().getAttribute("id");//获取session里面存储的id
+        int cout = service.deleted(id,uId);
         if (cout==1){
             servletResponse.sendRedirect("/note/noteList");
         }

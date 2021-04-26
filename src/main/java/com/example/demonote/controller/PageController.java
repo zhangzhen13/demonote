@@ -145,6 +145,26 @@ public class PageController {
  *         model.addAttribute("totalPage",totalPage);
  *         return "index";
  *     }
+ *
+ *      noteMapper
+ *        //删除数据原删除方式
+ * //    @Delete("delete from note where id =#{id}")
+ * //    public int delete(int id);
+ *     @Update("update note set isDelete =1 where id =#{id}")
+ *     public int deleted(int id);
+ *
+ *
+ *     NOteCOntroller
+ *      //删除数据
+ *     @RequestMapping("/delete/{id}")
+ *     public String delete(@PathVariable Integer id, HttpServletResponse servletResponse) throws IOException {
+ *          //执行sql语句返回的受影响条数嘛
+ *         int cout = service.deleted(id);//将id传给删除的方法，删除，删除成功，则表示删除了这1条数据，所以1赋给count，再判断cont==1.
+ *         if (cout==1){
+ *             servletResponse.sendRedirect("/note/noteList");
+ *         }
+ *         return "error";
+ *     }
  */
 
 /**

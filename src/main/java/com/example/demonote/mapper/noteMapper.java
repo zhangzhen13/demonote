@@ -19,14 +19,14 @@ public interface noteMapper {
     @Select("select * from note where isDelete = 0")
     List<note> selectAllnote();
 
-    //新增数据
-    @Insert("insert into note(name,content) values(#{name},#{content})")
+    //新增数据insert into Note(`name`,content,uId) values('焉能不贵复不去，空作昂藏一丈夫','记事3',3);
+    @Insert("insert into note(name,content,uId) values(#{name},#{content},#{uId})")
     public void addNote(note note);
     //删除数据
 //    @Delete("delete from note where id =#{id}")
 //    public int delete(int id);
-    @Update("update note set isDelete =1 where id =#{id}")
-    public int deleted(int id);
+    @Update("update note set isDelete =1 where id =#{id} and uId = #{uId}")
+    public int deleted(@Param("id") int id,@Param("uId") int uId);
 //    @Delete("delete from note where id =#{id}")
 //    public int deleteNote(note note);
     //根据id进行查找（用于修改）111111111111111111
