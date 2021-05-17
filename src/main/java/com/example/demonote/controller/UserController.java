@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -32,7 +34,7 @@ public class UserController {
         }
     }
     @RequestMapping("loginForm")
-    public String logins(Model model, String username, String password, HttpSession session, HttpServletRequest request) {
+    public String logins(Model model, String username, String password, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         User user = service.login(username,password);
 
         if (user!=null){
@@ -50,9 +52,27 @@ public class UserController {
                 session.setAttribute("id",user.getId());
                 Boolean rememberMe = Boolean.parseBoolean(request.getParameter("rememberMe"));//判断是否勾选了【记住我】
                 if (rememberMe){
-                    session.setMaxInactiveInterval(1*24*60*60);//设置session持久化时间。30天
-                }
+//                    session.setMaxInactiveInterval(1*24*60*60);//设置session持久化时间。1天
+                    Cookie cookie = new Cookie("JSESSIONID",session.getId());//创建cookie，设置cookie的键值
+//                    cookie.setPath(request.getContextPath());//指定cookie的路径，路径必须要添加上项目名称
+                    System.out.println("cookie1"+session.getId());
+                    System.out.println("cookie1 value"+cookie.getValue());
+
+                    cookie.setMaxAge(1*1*60*60);//设置cookie的有效期
+                    response.addCookie(cookie);//向响应中添加cookie
+//                    return "redirect:/note/noteList";
+
+                }else{
 //                session.setMaxInactiveInterval(1*24*60*60);//设置session持久化时间。30天
+                    Cookie cookie2 =  new Cookie("JSESSIONID",session.getId());
+//                    cookie2.setPath("http://localhost:8009");
+                    System.out.println("cookie2:"+session.getId());
+
+                    cookie2.setMaxAge(5*60);
+                    response.addCookie(cookie2);
+//                    return "redirect:/note/noteList";
+
+                }
                 return "redirect:/note/noteList";
             }else {
                 return "login";
